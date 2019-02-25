@@ -1,0 +1,63 @@
+SELECT * FROM `bigquery-public-data.census_bureau_international.country_names_area`
+
+Query 1:
+SELECT count(distinct(country_name)) 
+FROM `bigquery-public-data.census_bureau_international.country_names_area`
+Result  - 228
+
+Query 2:
+SELECT distinct(country_name), country_area
+FROM `bigquery-public-data.census_bureau_international.country_names_area`
+WHERE country_name= "Sweden"
+Result – 410335.0
+
+Query 3:
+SELECT distinct(country_name), max(country_area)
+FROM `bigquery-public-data.census_bureau_international.country_names_area`
+GROUP BY country_name
+Order by country_name desc Limit 3
+Result -  Zimbabwe (386847.0), Zambia (743398.0), Yemen (527968.0)
+
+Ouery 4:
+SELECT distinct(country_name), min(country_area)
+FROM `bigquery-public-data.census_bureau_international.country_names_area`
+GROUP BY country_name
+Order by country_name Asc Limit 3
+Result  - Afghanistan (652230.0), Albania(27398.0), Algeria(2381741.0)
+
+Query 5:
+SELECT distinct(country_name), avg(country_area)
+FROM `bigquery-public-data.census_bureau_international.country_names_area`
+GROUP BY country_name
+Order by country_name desc Limit 3
+Result - 
+Zimbabwe (386847.0), Zambia (743398.0), Yemen (527968.0)
+
+Query 6:
+SELECT sum(country_area)
+FROM `bigquery-public-data.census_bureau_international.country_names_area` 
+Result - 1.317148439E8
+
+Query 7:
+SELECT sum(country_area)
+FROM `bigquery-public-data.census_bureau_international.country_names_area` 
+WHERE Country_code = "Sweden"
+Result – null
+
+SELECT *FROM `bigquery-public-data.world_bank_intl_debt.international_debt`
+
+Query 8:
+SELECT *FROM `bigquery-public-data.world_bank_intl_debt.international_debt` 
+WHERE INDICATOR_NAME like "Interest payments on external debt, long-term (INT, current US$)" LIMIT 1
+Result – Afghanistan (2018) 5.68304366E7
+
+Query 9:
+SELECT S.VALUE FROM `bigquery-public-data.world_bank_intl_debt.international_debt`S INNER JOIN(SELECT MAX(VALUE) AS VAL FROM `bigquery-public-data.world_bank_intl_debt.international_debt` B WHERE B.COUNTRY_CODE='MEX') ON S.VALUE=VAL
+Result = 1.28819394327628E12
+
+Query 10:
+SELECT `bigquery-public-data.world_bank_intl_education.country_summary`.country_code  
+FROM `bigquery-public-data.world_bank_intl_education.country_summary`
+INNER JOIN  `bigquery-public-data.world_bank_intl_education.country_series_definitions`  
+ON `bigquery-public-data.world_bank_intl_education.country_summary`.country_code =`bigquery-public-data.world_bank_intl_education.country_series_definitions` .country_code
+Result = first row GIB, last row DMA
